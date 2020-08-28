@@ -27,22 +27,22 @@ public:
     }
 };
 
-//SINGLE CLASS FOR SINGLY LINKED LIST
+//SINGLY LINKED LIST CLASS FOR SINGLY LINKED LIST
 //ONE INSTANCE VARIABLE => POINTER TO THE HEAD NODE
 
-class Single
+class SinglyLinkedList
 {
 public:
     Node *head;
 
     //DEFAULT CONSTRUCTOR
-    Single()
+    SinglyLinkedList()
     {
         head = NULL;
     }
 
     //PARAMETERIZED CONTRUCTOR
-    Single(Node *n)
+    SinglyLinkedList(Node *n)
     {
         head = n;
     }
@@ -128,6 +128,51 @@ public:
         }
     }
 
+    void reverseLinkedList()
+    {
+
+        cout << "\n\n-------FUNCTION EXECUTES-------" << endl;
+        static bool madeNewHead = false;
+        static Node *oldHead = head;
+
+        if (oldHead->next == NULL)
+        {
+            cout << "Yaay My code reached the end of the recursion!!" << endl;
+            madeNewHead = false;
+            return;
+        }
+        Node *last = oldHead; //THIS IS WHERE THE ERROR IS COMING, IN THE FIRST ITERATION ITSELF I HAVE NO IDEA WHAT IS THE PROBLEM I HAVE DONE THIS STEP MULTIPLE TIMES IN OTHER FUNCTIONS.
+        Node *secondLast = oldHead;
+        cout << "last: " << last->data << endl;
+        cout << "Secondlast: " << secondLast->data << endl;
+
+        while (last->next != NULL)
+        {
+            last = last->next;
+        }
+        cout << "last: " << last->data << endl;
+        cout << "\n\n-------entering second last while loop-------" << endl
+             << endl;
+        while (secondLast->next != last)
+        {
+            secondLast = secondLast->next;
+            cout << "last: " << last->data << endl;
+            cout << "secondLast: " << secondLast->data << endl;
+        }
+        cout << "\n\n-------exiting second last while loop-------" << endl;
+        cout << "secondLast: " << secondLast->data << endl;
+
+        if (!madeNewHead)
+        {
+            head = last;
+            madeNewHead = true;
+        }
+        last->next = secondLast;
+        secondLast->next = NULL;
+
+        reverseLinkedList();
+    }
+
     //DELETE THE NODE WITH THE GIVEN KEY AFTER CHECKING A FEW THINGS
     void deleteNode(int key)
     {
@@ -174,24 +219,47 @@ public:
 
 int main()
 {
-    Node *n0 = new Node(99, 0);
 
-    Single s1(n0);
+    // Node *n0 = new Node(99, 0);
 
-    Node *n1 = new Node(5, 1);
-    Node *n2 = new Node(6, 2);
-    Node *n3 = new Node(7, 3);
-    Node *n4 = new Node(8, 4);
-    Node *n5 = new Node(69, -1);
-    Node *n6 = new Node(65, 10);
+    // SinglyLinkedList s1(n0);
+
+    // Node n01(5, 1);
+    // Node *n1 = &n01;
+    // Node *n2 = new Node(6, 2);
+    // Node *n3 = new Node(7, 3);
+    // Node *n4 = new Node(8, 4);
+    // Node *n5 = new Node(69, -1);
+    // Node *n6 = new Node(65, 10);
+
+    // s1.appendNode(n1);
+    // s1.appendNode(n2);
+    // s1.appendNode(n3);
+    // s1.appendNode(n4);
+    // s1.prependNode(n5);
+    // s1.insertNode(n6, 2);
+    // s1.deleteNode(3);
+
+    // s1.printList();
+
+    // s1.reverseLinkedList();
+    // s1.printList();]
+
+    SinglyLinkedList s1;
+
+    Node *n1 = new Node(8, 8);
+    Node *n2 = new Node(3, 3);
+    Node *n3 = new Node(2, 2);
+    Node *n4 = new Node(1, 1);
 
     s1.appendNode(n1);
     s1.appendNode(n2);
     s1.appendNode(n3);
     s1.appendNode(n4);
-    s1.prependNode(n5);
-    s1.insertNode(n6, 2);
-    s1.deleteNode(1);
+
+    s1.printList();
+
+    s1.reverseLinkedList();
 
     s1.printList();
 
